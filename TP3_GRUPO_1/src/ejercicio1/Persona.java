@@ -66,4 +66,33 @@ public class Persona implements  Comparable<Persona> {
 		    public String toString() {
 		        return nombre + " " + apellido + " - DNI: " + dni;
 		    }
+		    
+		    
+		    public boolean VerificarDniInvalido(String Dni) throws DniInvalido
+		    {
+		    	Boolean tieneLetra = false;
+		    	
+		    	for(int i=0; i < Dni.length(); i++)
+		    	{
+		    		char aux = Dni.charAt(i);
+		    		
+		    		if(!Character.isDigit(aux)) 
+		    		{
+		    			tieneLetra = true;
+		    		}
+		    	}
+		    	
+		    	if(tieneLetra)
+		    	{
+		    		throw new DniInvalido();
+		    	}
+		    	
+		    	if(tieneLetra)
+		    	{
+		    		return false;
+		    	}
+		    	
+		    	return true;
+		    }
+		    
 }
