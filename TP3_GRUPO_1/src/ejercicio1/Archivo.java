@@ -6,6 +6,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+
+import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
 public class Archivo {
 	
@@ -101,6 +104,54 @@ public class Archivo {
 		} catch (IOException e) {
 			System.out.println("No se encontro el archivo");
 		}
+	}
+	
+	public ArrayList<Persona> lee_personas() {
+		FileReader entrada;
+		ArrayList<Persona> lista = new ArrayList<Persona>();
+		try {
+			entrada = new FileReader(ruta);
+			BufferedReader miBuffer = new BufferedReader(entrada);
+			
+			String linea = " ";
+			while (linea != null) {
+				//lee
+				linea = miBuffer.readLine();
+				if (linea != "" && linea != null)
+				{
+					//lo divide en tres campos separados por el guion
+					String[] datosPersona = linea.split("-");
+					
+					//verifico que este todo bien con el vector de datos
+					boolean algunError = false;
+					for(int i = 0; i < 3; i++)
+					{
+						if(datosPersona[i] == "" || datosPersona == null)
+							algunError = true;
+					}
+					if (algunError) {
+						throw new CargaDeDatosConError();
+					}
+					
+					//creo instancia de persona para rellenarla
+					Persona aux = new Persona();
+					aux.setNombre(datosPersona[0]);
+					aux.setApellido(datosPersona[1]);
+					aux.setDni(datosPersona[2]);
+					//se agrega a la lista
+					lista.add(aux);
+				}
+				
+			}
+			miBuffer.close();
+			entrada.close();
+			
+			
+
+		} catch (IOException e) {
+			System.out.println("No se encontro el archivo");
+		}
+		return lista;
 	}
 
 	public String getRuta() {

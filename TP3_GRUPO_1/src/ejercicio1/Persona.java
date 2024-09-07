@@ -6,7 +6,12 @@ public class Persona implements  Comparable<Persona> {
 	    private String nombre;
 	    private String apellido;
 	    private String dni;
-
+	    
+	    public Persona() {
+	    	this.nombre = "";
+	        this.apellido = "";
+	        this.dni = "";
+	    }
 	    public Persona(String nombre, String apellido, String dni) {
 	        this.nombre = nombre;
 	        this.apellido = apellido;
@@ -64,7 +69,7 @@ public class Persona implements  Comparable<Persona> {
 		   
 		    @Override
 		    public String toString() {
-		        return nombre + " " + apellido + " - DNI: " + dni;
+		        return "[ " + nombre + " " + apellido + " - DNI: " + dni + " ]";
 		    }
 		    
 		    
