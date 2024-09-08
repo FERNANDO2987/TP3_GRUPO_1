@@ -13,7 +13,7 @@ public class Principal {
         TreeSet<Persona> listaSinRep = new TreeSet<>();
         
 		Archivo archivo = new Archivo();
-		archivo.setRuta("D:\\TP3_GRUPO_1\\TP3_GRUPO_1\\src\\Personas.txt");
+		archivo.setRuta("src/Personas.txt");
 		
 //		  ArrayList<Persona> listaPersonas = archivo.lee_personas();
 //		
@@ -37,8 +37,6 @@ public class Principal {
 //	        for (Persona persona : listaSinRep) {
 //	            System.out.println(persona.toString());
 //	        }
-
-		
 		
 		 // Leer las personas desde el archivo
         ArrayList<Persona> listaPersonas = archivo.lee_personas();
