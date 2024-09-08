@@ -8,7 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
+//import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
 public class Archivo {
 	
