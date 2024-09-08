@@ -107,52 +107,44 @@ public class Archivo {
 	}
 	
 	public ArrayList<Persona> lee_personas() {
-		FileReader entrada;
-		ArrayList<Persona> lista = new ArrayList<Persona>();
-		try {
-			entrada = new FileReader(ruta);
-			BufferedReader miBuffer = new BufferedReader(entrada);
-			
-			String linea = " ";
-			while (linea != null) {
-				//lee
-				linea = miBuffer.readLine();
-				if (linea != "" && linea != null)
-				{
-					//lo divide en tres campos separados por el guion
-					String[] datosPersona = linea.split("-");
-					
-					//verifico que este todo bien con el vector de datos
-					boolean algunError = false;
-					for(int i = 0; i < 3; i++)
-					{
-						if(datosPersona[i] == "" || datosPersona == null)
-							algunError = true;
-					}
-					if (algunError) {
-						throw new CargaDeDatosConError();
-					}
-					
-					//creo instancia de persona para rellenarla
-					Persona aux = new Persona();
-					aux.setNombre(datosPersona[0]);
-					aux.setApellido(datosPersona[1]);
-					aux.setDni(datosPersona[2]);
-					//se agrega a la lista
-					lista.add(aux);
-				}
-				
-			}
-			miBuffer.close();
-			entrada.close();
-			
-			
+	    ArrayList<Persona> lista = new ArrayList<>();
+	    
+	    try (FileReader entrada = new FileReader(ruta);
+	         BufferedReader miBuffer = new BufferedReader(entrada)) {
+	        
+	        String linea;
+	        while ((linea = miBuffer.readLine()) != null) {
+	            if (!linea.trim().isEmpty()) {
+	                // Dividir la línea en tres partes: Nombre - Apellido - DNI
+	                String[] datosPersona = linea.split("-");
+	                
+	                // Verificar que los datos estén completos (deben ser 3 partes)
+	                if (datosPersona.length == 3) {
+	                    String nombre = datosPersona[0].trim();
+	                    String apellido = datosPersona[1].trim();
+	                    String dni = datosPersona[2].trim();
 
-		} catch (IOException e) {
-			System.out.println("No se encontro el archivo");
-		}
-		return lista;
+	                    // Validar que el DNI solo tenga números
+	                    try {
+	                        Persona persona = new Persona(nombre, apellido, dni);
+	                        if (persona.VerificarDniInvalido(dni)) {
+	                            lista.add(persona);  // Agregar persona a la lista si el DNI es válido
+	                        }
+	                    } catch (DniInvalido e) {
+	                        System.out.println("DNI inválido para " + nombre + " " + apellido + ": " + dni);
+	                    }
+	                } else {
+	                    System.out.println("Error en la línea: " + linea + ". Debe contener Nombre, Apellido y DNI.");
+	                }
+	            }
+	        }
+	    } catch (IOException e) {
+	        System.out.println("No se encontró el archivo: " + ruta);
+	    }
+	    
+	    return lista;
 	}
+
 
 	public String getRuta() {
 		return ruta;

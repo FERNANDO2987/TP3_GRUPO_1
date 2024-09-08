@@ -73,31 +73,18 @@ public class Persona implements  Comparable<Persona> {
 		    }
 		    
 		    
-		    public boolean VerificarDniInvalido(String Dni) throws DniInvalido
-		    {
-		    	Boolean tieneLetra = false;
-		    	
-		    	for(int i=0; i < Dni.length(); i++)
-		    	{
-		    		char aux = Dni.charAt(i);
-		    		
-		    		if(!Character.isDigit(aux)) 
-		    		{
-		    			tieneLetra = true;
-		    		}
-		    	}
-		    	
-		    	if(tieneLetra)
-		    	{
-		    		throw new DniInvalido();
-		    	}
-		    	
-		    	if(tieneLetra)
-		    	{
-		    		return false;
-		    	}
-		    	
-		    	return true;
+		    public boolean VerificarDniInvalido(String Dni) throws DniInvalido {
+		        // Recorrer los caracteres del DNI
+		        for (int i = 0; i < Dni.length(); i++) {
+		            char aux = Dni.charAt(i);
+		            // Si algún carácter no es un dígito, lanzar la excepción
+		            if (!Character.isDigit(aux)) {
+		                throw new DniInvalido();
+		            }
+		        }
+		        // Si el DNI es válido (solo contiene dígitos), retornar true
+		        return true;
 		    }
+
 		    
 }
