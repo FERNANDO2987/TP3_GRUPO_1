@@ -50,6 +50,14 @@ public class Principal {
         for (Persona persona : listaSinRep) {
             System.out.println(persona.toString());
         }
+        
+        // PUNTO C
+        Archivo resultado = new Archivo();
+        resultado.setRuta("src/Resultado.txt");
+
+        for (Persona persona : listaSinRep) {
+            resultado.escribe_lineas(persona.toString() + "\n");
+        }
 	}
 
 }
